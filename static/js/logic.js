@@ -36,8 +36,8 @@ function createMap(earthquakeData) {
 
     var earthquakes = L.layerGroup(markers)
     var magnitudes = earthquakeData.map((x) => (+x.properties.mag));
-    console.log(d3.extent(magnitudes));
-    console.log(magnitudes);
+    //console.log(d3.extent(magnitudes));
+    //console.log(magnitudes);
 
       // Define streetmap and darkmap layers
   var streetmap = L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
@@ -80,7 +80,8 @@ function createMap(earthquakeData) {
   L.control.layers(baseMaps, overlayMaps, {
     collapsed: false
   }).addTo(myMap);
-
+  
+  // create legend and set colors to depthcolors (do the addhtml process)
   var legend = L.control({position: "bottomright"});
   legend.onAdd = function(myMap){
       var div = L.DomUtil.create('div', 'legend');
