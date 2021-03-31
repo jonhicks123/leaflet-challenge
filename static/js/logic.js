@@ -12,12 +12,14 @@ d3.json(queryUrl, function(data) {
 // marker color function which we will add when creating map
 function depthColor(depth) {
     var color = "";
-    if (depth <= 10) { color = "#2A81CB"; }
-    else if (depth <= 30) { color = "#9C2BCB"; }
-    else if (depth <= 50) { color = "#2AAD27"; }
-    else if (depth <= 70) { color = "#CAC428";  }
-    else if (depth <= 90) { color = "#CB8427"; }
-    else { color = "#CB2B3E"; }
+    if (depth <= 0) {color = "#00FFFF"; }
+    else if (depth <=10) {color = "#2A81CB"}
+    else if (depth <= 30) { color = "#2AAD27"; }
+    else if (depth <= 50) { color = "#CAC428"; }
+    else if (depth <= 70) { color = "#CB8427";  }
+    else if (depth <= 90) { color = "#CB2B3E"; }
+    else if (depth > 91) { color = "#940000"; }
+    else { color = "#940000"; }
     return color;
 };
 
@@ -85,14 +87,14 @@ function createMap(earthquakeData) {
   var legend = L.control({position: "bottomright"});
   legend.onAdd = function(myMap){
       var div = L.DomUtil.create('div', 'legend');
-      var depths = [10, 30, 50, 70, 90];
+      var depths = [-10, 10, 30, 50, 70, 90];
 
       depths.forEach(d => {
           var range = `${d} - ${d+20}`;
           if (d >= 90) {range = `${d}+`}
           var addhtml = `<div class="legend-item">
           <div style="height: 20px; width: 20px; background-color:${depthColor(d)}"> </div>
-          <div class=legend-text>Magnitude: <strong>${range}</strong></div>
+          <div class=legend-text>Depth: <strong>${range}</strong></div>
         </div>`
       div.innerHTML += addhtml
       });
